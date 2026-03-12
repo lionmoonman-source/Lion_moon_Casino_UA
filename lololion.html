@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LION COSMOS CASINO 777</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        
+        body {
+            background: #050505 url('https://www.transparenttextures.com/patterns/stardust.png');
+            color: #ffd700;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            text-align: center;
+            margin: 0; padding: 0;
+        }
+
+        /* Джекпот табло */
+        .jackpot-container {
+            background: linear-gradient(90deg, #000, #8b0000, #000);
+            border-bottom: 2px solid #ffd700;
+            padding: 10px;
+            font-family: 'Orbitron', sans-serif;
+        }
+        #jackpot-amount {
+            font-size: 32px;
+            color: #fff;
+            text-shadow: 0 0 15px #ff0000, 0 0 5px #ffd700;
+        }
+
+        /* Баннер со львом */
+        .header-banner {
+            width: 100%; max-width: 900px;
+            margin: 15px auto;
+            border: 3px solid #ffd700;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+            position: relative;
+        }
+        .header-banner img { width: 100%; display: block; filter: brightness(1.1); }
+
+        /* Игровое поле */
+        .casino-panel {
+            background: rgba(20, 20, 20, 0.95);
+            padding: 20px;
+            border-radius: 25px;
+            border: 2px solid #444;
+            display: inline-block;
+            margin: 20px auto;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+        }
+
+        #reels {
+            font-size: 80px;
+            background: #000;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            border: 2px inset #555;
+            min-height: 100px;
+        }
+
+        /* Кнопки и инпуты */
+        .btn {
+            cursor: pointer; font-weight: bold; text-transform: uppercase;
+            border-radius: 8px; transition: 0.2s; border: none;
+        }
+        .btn-spin {
+            background: linear-gradient(#00ff00, #008000);
+            color: white; width: 100%; padding: 15px; font-size: 22px;
+            box-shadow: 0 5px 0 #004d00; margin-top: 10px;
+        }
+        .btn-spin:active { transform: translateY(3px); box-shadow: 0 2px 0 #004d00; }
+
+        .bet-input {
+            background: #111; color: gold; border: 1px solid gold;
+            padding: 10px; font-size: 18px; width: 80px; text-align: center;
+        }
+
+        /* Методы оплаты */
+        .payment-methods {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 215, 0, 0.05);
+        }
+        .payment-methods img {
+            height: 30px; margin: 0 10px; filter: grayscale(0.5) brightness(1.5);
+        }
+
+        /* Анимация мигания при победе */
+        .win-flash { animation: flash 0.5s infinite; }
+        @keyframes flash {
+            0% { background: rgba(0,0,0,0.95); }
+            50% { background: rgba(0, 255, 0, 0.2); }
+            100% { background: rgba(0,0,0,0.95); }
+        }
+    </style>
+</head>
+<body id="main-body">
+
+    <div class="jackpot-container">
+        <div style="font-size: 12px; letter-spacing: 2px;">GLOBAL SPACE JACKPOT</div>
+        <div id="jackpot-amount">1,450,230.12 ₴</div>
+    </div>
+
+    <div class="header-banner">
+        <img src="https://img.freepik.com/premium-photo/cyberpunk-lion-sitting-on-moon-surface-looking-at-earth-generative-ai_918839-4467.jpg" alt="Lion Cosmos">
+    </div>
+
+    <div class="casino-panel" id="casino-ui">
+        <div style="color: #00ff00; font-size: 24px; font-weight: bold;">💰 <span id="balance">5000.00</span> ₴</div>
+        
+        <div id="reels">🎰🎰🎰</div>
+        <div id="status" style="margin-bottom: 10px;">УДАЧИ, БРАТАН!</div>
+
+        <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 15px;">
+            <button class="btn" style="padding: 10px; background: #333; color: gold;" onclick="adjustBet(-1)">-</button>
+            <input type="number" id="bet-input" class="bet-input" value="1.00" step="0.1">
+            <button class="btn" style="padding: 10px; background: #333; color: gold;" onclick="adjustBet(1)">+</button>
+        </div>
+
+        <button class="btn btn-spin" onclick="spin()" id="spin-btn">ИГРАТЬ</button>
+        
+        <div style="margin-top: 15px;">
+            <button class="btn" id="auto-btn" onclick="toggleAuto()" style="background: #444; color: #fff; padding: 8px 15px;">АВТО-УДАР: ВЫКЛ</button>
+        </div>
+    </div>
+
+    <div class="payment-methods">
+        <p style="font-size: 12px; color: #777;">МЫ ПРИНИМАЕМ:</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/2560px-Visa_Inc._logo.svg.png" alt="Visa">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1280px-Mastercard-logo.svg.png" alt="Mastercard">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png" alt="BTC">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Apple_Pay_logo.svg/1200px-Apple_Pay_logo.svg.png" alt="ApplePay">
+    </div>
+
+    <script>
+        let balance = 5000.00;
+        let jackpot = 1450230.12;
+        let isAuto = false;
+        let isSpinning = false;
+        const symbols = ['🦁', '💎', '7️⃣', '🍒', '🌟', '🍀'];
+
+        // Растущий джекпот
+        setInterval(() => {
+            jackpot += Math.random() * 0.5;
+            document.getElementById('jackpot-amount').innerText = jackpot.toLocaleString('ru-RU', {minimumFractionDigits: 2}) + " ₴";
+        }, 1000);
+
+        function adjustBet(val) {
+            let input = document.getElementById('bet-input');
+            let res = parseFloat(input.value) + val;
+            if (res > 0 && res <= 1000) input.value = res.toFixed(2);
+        }
+
+        function spin() {
+            if (isSpinning) return;
+            let bet = parseFloat(document.getElementById('bet-input').value);
+            
+            if (balance < bet) {
+                alert("Пополни баланс, бро!");
+                return;
+            }
+
+            isSpinning = true;
+            balance -= bet;
+            document.getElementById('balance').innerText = balance.toFixed(2);
+            document.getElementById('status').innerText = "КРУТИМ...";
+            document.getElementById('casino-ui').classList.remove('win-flash');
+
+            let timer = 0;
+            let interval = setInterval(() => {
+                document.getElementById('reels').innerText = 
+                    symbols[Math.floor(Math.random()*symbols.length)] + 
+                    symbols[Math.floor(Math.random()*symbols.length)] + 
+                    symbols[Math.floor(Math.random()*symbols.length)];
+                timer += 100;
+                if(timer >= 1200) {
+                    clearInterval(interval);
+                    finishSpin(bet);
+                }
+            }, 100);
+        }
+
+        function finishSpin(bet) {
+            let r = [
+                symbols[Math.floor(Math.random()*symbols.length)],
+                symbols[Math.floor(Math.random()*symbols.length)],
+                symbols[Math.floor(Math.random()*symbols.length)]
+            ];
+            document.getElementById('reels').innerText = r.join('');
+            
+            let win = 0;
+            if (r[0] === r[1] && r[1] === r[2]) {
+                win = bet * 20;
+                document.getElementById('status').innerText = "💰 ДЖЕКПОТ: +" + win + " ₴!";
+                document.getElementById('casino-ui').classList.add('win-flash');
+            } else if (r[0] === r[1] || r[1] === r[2]) {
+                win = bet * 3;
+                document.getElementById('status').innerText = "ВЫИГРЫШ: +" + win + " ₴";
+            } else {
+                document.getElementById('status').innerText = "ЕЩЕ РАЗ!";
+            }
+
+            balance += win;
+            document.getElementById('balance').innerText = balance.toFixed(2);
+            isSpinning = false;
+        }
+
+        function toggleAuto() {
+            isAuto = !isAuto;
+            let btn = document.getElementById('auto-btn');
+            if(isAuto) {
+                btn.innerText = "АВТО-УДАР: ВКЛ";
+                btn.style.background = "green";
+                autoLoop();
+            } else {
+                btn.innerText = "АВТО-УДАР: ВЫКЛ";
+                btn.style.background = "#444";
+            }
+        }
+
+        function autoLoop() {
+            if(!isAuto) return;
+            spin();
+            setTimeout(autoLoop, 2000);
+        }
+    </script>
+</body>
+</html>

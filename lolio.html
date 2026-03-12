@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LION CASINO | OFFICIAL SPACE</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+        
+        body {
+            background: #000; color: #fff; font-family: 'Montserrat', sans-serif;
+            margin: 0; padding: 0; overflow-x: hidden;
+        }
+
+        /* Хедер - Верхняя панель */
+        .top-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 15px; background: #0d0d0d; border-bottom: 1px solid #333;
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .logo { color: gold; font-weight: bold; font-size: 18px; letter-spacing: 1px; }
+        .user-balance { background: #1a1a1a; padding: 5px 12px; border-radius: 20px; font-weight: bold; border: 1px solid #444; color: #00ff00; }
+        .dep-btn { background: #28a745; color: #fff; border: none; padding: 7px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; }
+
+        /* Главный баннер */
+        .main-banner {
+            width: 95%; max-width: 900px; margin: 15px auto;
+            border-radius: 15px; overflow: hidden; border: 2px solid gold;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+        .main-banner img { width: 100%; display: block; }
+
+        /* Секция методов оплаты */
+        .payment-strip {
+            display: flex; justify-content: center; gap: 15px; padding: 10px;
+            background: rgba(255, 255, 255, 0.03); margin-bottom: 20px;
+        }
+        .payment-strip img { height: 18px; filter: brightness(0.8); }
+
+        /* Контейнер слота */
+        .slot-wrapper {
+            background: #000; padding: 15px; border: 2px solid #222;
+            border-radius: 15px; display: inline-block; margin: 10px auto;
+        }
+        .slot-title { color: gold; font-size: 14px; margin-bottom: 10px; text-transform: uppercase; }
+        .reels-grid { display: grid; grid-template-columns: repeat(5, 60px); grid-template-rows: repeat(3, 60px); gap: 5px; }
+        .cell { background: #111; border: 1px solid #333; display: flex; align-items: center; justify-content: center; font-size: 30px; border-radius: 5px; }
+
+        /* Кнопка удара */
+        .spin-container { margin: 20px 0; }
+        .spin-btn {
+            width: 100px; height: 100px; border-radius: 50%; border: 6px solid #000;
+            background: radial-gradient(#ffcc00, #b8860b); color: #000;
+            font-weight: bold; font-size: 18px; cursor: pointer;
+            box-shadow: 0 0 15px gold;
+        }
+
+        /* Лобби игр */
+        .lobby { padding: 0 15px 100px; text-align: left; }
+        .lobby h2 { font-size: 16px; color: gold; border-left: 3px solid gold; padding-left: 10px; }
+        .game-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .game-item { background: #111; border-radius: 10px; border: 1px solid #333; padding: 5px; text-align: center; }
+        .game-item.active { border-color: gold; box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+        .game-item p { font-size: 10px; margin: 5px 0; }
+
+        /* Нижнее меню */
+        .bottom-nav {
+            position: fixed; bottom: 0; width: 100%; background: #0d0d0d;
+            border-top: 1px solid #333; display: flex; justify-content: space-around;
+            padding: 10px 0; z-index: 1000;
+        }
+        .nav-item { color: #888; font-size: 10px; text-decoration: none; text-align: center; }
+        .nav-item i { display: block; font-size: 20px; margin-bottom: 3px; }
+        .nav-item.active { color: gold; }
+
+    </style>
+</head>
+<body>
+
+    <div class="top-header">
+        <div class="logo">LION 🦁</div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div class="user-balance" id="bal">5000.00 ₴</div>
+            <button class="dep-btn" onclick="alert('Переход в кассу...')">➕</button>
+        </div>
+    </div>
+
+    <div class="main-banner">
+        <img src="https://img.freepik.com/premium-photo/gold-lion-nebula-space-background_918839-2455.jpg" alt="Space Lion">
+    </div>
+
+    <div class="payment-strip">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="MC">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Apple_Pay_logo.svg" alt="Apple">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg" alt="BTC">
+    </div>
+
+    <div class="slot-wrapper">
+        <div class="slot-title" id="game-name">Magic Apple</div>
+        <div class="reels-grid" id="grid"></div>
+    </div>
+
+    <div class="spin-container">
+        <button class="spin-btn" id="spin-btn" onclick="spin()">SPIN</button>
+    </div>
+
+    <div class="lobby">
+        <h2>ПОПУЛЯРНЫЕ ИГРЫ</h2>
+        <div class="game-list" id="game-list">
+            </div>
+    </div>
+
+    <div class="bottom-nav">
+        <div class="nav-item active">🏠<br>Лобби</div>
+        <div class="nav-item">🎁<br>Бонусы</div>
+        <div class="nav-item">🏆<br>Турниры</div>
+        <div class="nav-item">👤<br>Профиль</div>
+    </div>
+
+    <script>
+        let balance = 5000.00;
+        let isSpinning = false;
+        let activeIcons = ['🍎', '💎', '🍒', '🔔', '🍏'];
+
+        const games = [
+            { name: 'Magic Apple', icons: ['🍎', '💎', '🍒', '🔔', '🍏'] },
+            { name: 'Coin Volcano', icons: ['🌋', '🪙', '💰', '💎', '🔥'] },
+            { name: 'Sun of Egypt', icons: ['☀️', '🏺', '🦁', '🪙', '🌵'] },
+            { name: 'Buffalo Power', icons: ['🦬', '🦅', '🐺', '🐾', '☀️'] },
+            { name: 'Gates of Olympus', icons: ['⚡', '👑', '💍', '⌛', '💎'] },
+            { name: 'Sweet Bonanza', icons: ['🍭', '🍬', '🍉', '🍇', '🍌'] }
+        ];
+
+        // Рендер лобби
+        const list = document.getElementById('game-list');
+        games.forEach((g, i) => {
+            let div = document.createElement('div');
+            div.className = `game-item ${i===0?'active':''}`;
+            div.innerHTML = `<p>${g.name}</p>`;
+            div.onclick = () => {
+                if(isSpinning) return;
+                activeIcons = g.icons;
+                document.getElementById('game-name').innerText = g.name;
+                document.querySelectorAll('.game-item').forEach(el => el.classList.remove('active'));
+                div.classList.add('active');
+            };
+            list.appendChild(div);
+        });
+
+        // Сетка 5х3
+        const grid = document.getElementById('grid');
+        for(let i=0; i<15; i++) {
+            let cell = document.createElement('div');
+            cell.className = 'cell';
+            cell.id = 'c' + i;
+            cell.innerText = '🦁';
+            grid.appendChild(cell);
+        }
+
+        function spin() {
+            if(isSpinning || balance < 10) return;
+            isSpinning = true;
+            balance -= 10;
+            document.getElementById('bal').innerText = balance.toFixed(2) + " ₴";
+
+            let count = 0;
+            let shuffle = setInterval(() => {
+                for(let i=0; i<15; i++) {
+                    document.getElementById('c' + i).innerText = activeIcons[Math.floor(Math.random()*activeIcons.length)];
+                }
+                count++;
+                if(count > 12) {
+                    clearInterval(shuffle);
+                    finalize();
+                }
+            }, 80);
+        }
+
+        function finalize() {
+            let res = [];
+            for(let i=0; i<15; i++) res.push(document.getElementById('c' + i).innerText);
+            
+            // Логика выигрыша (упрощенная)
+            if(res[5] === res[6] && res[6] === res[7]) {
+                balance += 50;
+                alert("ВЫИГРЫШ 50 ₴!");
+            }
+
+            document.getElementById('bal').innerText = balance.toFixed(2) + " ₴";
+            isSpinning = false;
+        }
+    </script>
+</body>
+</html>

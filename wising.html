@@ -3,205 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LION CASINO | PRAGMATIC PLAY EDITION</title>
+    <title>LION CASINO | SPACE JACKPOT</title>
     <style>
-        body {
-            background: #000; color: #fff; font-family: 'Arial', sans-serif;
-            margin: 0; padding: 0; user-select: none;
-        }
-
-        /* Верхняя панель в стиле Pragmatic */
-        .header {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 8px 15px; background: #0a0e14; border-bottom: 1px solid #1c252e;
-        }
-        .header-left { display: flex; gap: 15px; align-items: center; }
-        .btn-icon { font-size: 20px; color: #ccc; cursor: pointer; }
-        .btn-deposit {
-            background: #ff2d55; color: #fff; border: none; padding: 8px 18px;
-            border-radius: 5px; font-weight: bold; font-size: 14px;
-        }
-
-        /* Баннер (наш Космический Лев) */
-        .banner-container {
-            width: 100%; max-height: 180px; overflow: hidden; border-bottom: 2px solid gold;
-        }
-        .banner-container img { width: 100%; object-fit: cover; }
-
-        /* Игровое поле */
-        .game-area {
-            background: url('https://www.transparenttextures.com/patterns/dark-matter.png'), radial-gradient(circle, #1a2a44 0%, #050a12 100%);
-            padding: 10px 5px; text-align: center;
-        }
-        .slot-title { font-weight: bold; color: gold; margin-bottom: 5px; font-size: 18px; text-shadow: 0 0 10px #000; }
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
         
-        .grid-wrapper {
-            display: grid; gap: 4px; margin: 0 auto;
-            background: rgba(0,0,0,0.5); padding: 5px; border-radius: 5px;
-            border: 2px solid #2a3544; width: fit-content;
-        }
-        .cell {
-            width: 60px; height: 60px; background: rgba(255,255,255,0.05);
-            border-radius: 4px; display: flex; align-items: center; justify-content: center;
-            font-size: 30px; border: 1px solid rgba(255,255,255,0.1);
+        body {
+            background: #000; color: #fff; font-family: 'Montserrat', sans-serif;
+            margin: 0; padding: 0; overflow-x: hidden;
         }
 
-        /* Нижняя панель управления (Инфо) */
-        .info-bar {
-            display: flex; justify-content: space-around; background: rgba(0,0,0,0.8);
-            padding: 5px; font-size: 12px; color: #ffcc00; font-weight: bold;
+        /* HEADER (Pragmatic Style) */
+        .top-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 15px; background: #0d0d0d; border-bottom: 1px solid #333;
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .logo-area { display: flex; align-items: center; gap: 10px; color: gold; font-weight: bold; }
+        .dep-btn {
+            background: #ff2d55; color: #fff; border: none; padding: 8px 25px;
+            border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer;
         }
 
-        /* Блок управления спином */
-        .controls {
-            display: flex; justify-content: center; align-items: center;
-            padding: 15px 0; background: #0a0e14; gap: 20px;
+        /* ТВОЙ БАННЕР-МЕЧТА (Lion Space) */
+        .main-showcase {
+            width: 100%; position: relative; border-bottom: 2px solid gold;
         }
-        .bet-adjust {
-            width: 35px; height: 35px; border-radius: 50%; border: 2px solid #444;
-            background: #111; color: #fff; font-size: 20px; cursor: pointer;
+        .main-showcase img { width: 100%; display: block; object-fit: cover; }
+
+        /* СПИСОК ПОБЕДИТЕЛЕЙ */
+        .winners-line {
+            background: rgba(255, 215, 0, 0.05);
+            padding: 10px; font-size: 11px; text-transform: uppercase;
+            border-bottom: 1px solid #222; margin-bottom: 20px; color: #ccc;
         }
+        .winners-line b { color: gold; margin-right: 5px; }
+
+        /* ИГРОВОЕ ЛОББИ (Прагматик) */
+        .game-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+            padding: 0 15px; margin-bottom: 120px;
+        }
+        .game-card {
+            background: #111; border: 1px solid #222; border-radius: 12px;
+            padding: 10px; text-align: center; transition: 0.3s;
+        }
+        .game-card:hover { border-color: gold; transform: translateY(-5px); box-shadow: 0 5px 15px rgba(255,215,0,0.2); }
+        .game-card img { width: 80%; border-radius: 50%; border: 2px solid #333; background: #000;}
+        .game-card p { font-size: 10px; margin: 10px 0 0; color: #fff; font-weight: bold; text-transform: uppercase;}
+
+        /* НИЖНЯЯ ПАНЕЛЬ С КНОПКОЙ */
+        .bottom-controls {
+            position: fixed; bottom: 0; width: 100%; background: #0a0a0a;
+            border-top: 2px solid gold; padding: 15px 0;
+            display: flex; justify-content: space-around; align-items: center; z-index: 1000;
+        }
+        .info-cell { text-align: left; }
+        .info-cell span { display: block; font-size: 10px; color: #888; text-transform: uppercase; }
+        .info-cell b { font-size: 18px; color: #00ff00; }
+
         .spin-btn {
-            width: 70px; height: 70px; border-radius: 50%; border: 4px solid #1c252e;
-            background: #fff; color: #000; font-size: 30px; display: flex;
-            align-items: center; justify-content: center; cursor: pointer;
-            box-shadow: 0 0 15px rgba(255,255,255,0.2);
+            width: 80px; height: 80px; border-radius: 50%; border: 4px solid #000;
+            background: linear-gradient(#ffcc00, #b8860b); color: #000;
+            font-weight: bold; font-size: 16px; cursor: pointer; box-shadow: 0 0 20px gold;
         }
         .spin-btn:active { transform: scale(0.9); }
-
-        /* Лобби (Список игр) */
-        .lobby { padding: 15px; background: #000; }
-        .lobby-h { color: gold; font-size: 14px; margin-bottom: 10px; border-left: 3px solid gold; padding-left: 8px; }
-        .game-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .game-item { background: #111; border-radius: 8px; overflow: hidden; border: 1px solid #222; text-align: center; padding: 5px; }
-        .game-item.active { border-color: gold; box-shadow: 0 0 8px gold; }
-        .game-item p { font-size: 10px; margin: 5px 0; color: #ccc; }
+        .bet-box select { background: #000; color: gold; border: 1px solid gold; padding: 5px; border-radius: 5px;}
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="header-left">
-            <span class="btn-icon">❮</span>
-            <span class="btn-icon">☰</span>
+    <div class="top-nav">
+        <div class="logo-area"><span>❮</span> ☰ LION🦁</div>
+        <button class="dep-btn">Депозит</button>
+    </div>
+
+    <div class="main-showcase">
+        <img src="https://img.freepik.com/premium-photo/gold-lion-nebula-space-background_918839-2455.jpg" alt="Space Jackpot">
         </div>
-        <button class="btn-deposit">Депозит</button>
+
+    <div class="winners-line">
+        <marquee behavior="scroll" direction="left">
+            <b>Последний выигрыш:</b> vovan_99 - 14,500 ₴ (Magic Apple) / <b> Джекпот дня:</b> dimon_ua - 340,000 ₴ (Gates of Olympus)
+        </marquee>
     </div>
 
-    <div class="banner-container">
-        <img src="https://img.freepik.com/premium-photo/gold-lion-nebula-space-background_918839-2455.jpg" alt="Lion Banner">
+    <div class="game-grid">
+        <div class="game-card">
+            <img src="https://free-png.ru/wp-content/uploads/2021/07/free-png.ru-502.png" alt="Crow Icon">
+            <p>Вороны</p>
+        </div>
+        <div class="game-card">
+            <img src="https://pngicon.ru/file/uploads/apple-png-icon.png" alt="Apple Icon">
+            <p>Магическое Яблоко</p>
+        </div>
+        <div class="game-card">
+            <img src="https://www.flaticon.com/free-icons/pharaoh" alt="Egypt Icon">
+            <p>Солнце Египта</p>
+        </div>
     </div>
 
-    <div class="game-area">
-        <div class="slot-title" id="active-title">SUGAR RUSH 1000</div>
-        <div class="grid-wrapper" id="slot-grid"></div>
-    </div>
-
-    <div class="info-bar">
-        <div>КРЕДИТ: <span id="display-bal">100,000.00</span> ₴</div>
-        <div>СТАВКА: <span id="display-bet">20.00</span> ₴</div>
-    </div>
-
-    <div class="controls">
-        <button class="bet-adjust" onclick="changeBet(-5)">−</button>
-        <div class="spin-btn" onclick="startSpin()">↻</div>
-        <button class="bet-adjust" onclick="changeBet(5)">+</button>
-    </div>
-
-    <div class="lobby">
-        <div class="lobby-h">ПОПУЛЯРНЫЕ СЛОТЫ</div>
-        <div class="game-grid" id="lobby-grid"></div>
+    <div class="bottom-controls">
+        <div class="info-cell">
+            <span>Баланс</span>
+            <b id="user-bal">5000.00 ₴</b>
+        </div>
+        
+        <button class="spin-btn" onclick="startSpin()">SPIN</button>
+        
+        <div class="bet-box">
+            <span>Ставка</span><br>
+            <select id="bet-val">
+                <option value="10">10.00</option>
+                <option value="50">50.00</option>
+                <option value="100">100.00</option>
+            </select>
+        </div>
     </div>
 
     <script>
-        let balance = 100000.00;
-        let currentBet = 20.00;
+        let balance = 5000.00;
         let isSpinning = false;
 
-        const games = [
-            { name: 'Sugar Rush', cols: 7, rows: 7, icons: ['🍬', '🍭', '🧸', '⭐', '🍎'] },
-            { name: 'Gates of Olympus', cols: 6, rows: 5, icons: ['⚡', '👑', '💍', '⌛', '💎'] },
-            { name: 'Sweet Bonanza', cols: 6, rows: 5, icons: ['🍭', '🍉', '🍎', '🍇', '🍌'] },
-            { name: 'Big Bass Splash', cols: 5, rows: 3, icons: ['🐟', '🎣', '🚤', '🌊', '📦'] },
-            { name: 'Lion Space', cols: 5, rows: 3, icons: ['🦁', '💎', '🚀', '⭐', '🪐'] }
-        ];
-
-        let activeGame = games[0];
-
-        function initLobby() {
-            const lGrid = document.getElementById('lobby-grid');
-            games.forEach((g, i) => {
-                let item = document.createElement('div');
-                item.className = `game-item ${i===0?'active':''}`;
-                item.innerHTML = `<p>${g.name}</p><span style="font-size:8px;color:gold">${g.cols}x${g.rows}</span>`;
-                item.onclick = () => {
-                    if(isSpinning) return;
-                    activeGame = g;
-                    document.getElementById('active-title').innerText = g.name.toUpperCase();
-                    document.querySelectorAll('.game-item').forEach(el => el.classList.remove('active'));
-                    item.classList.add('active');
-                    buildGrid();
-                };
-                lGrid.appendChild(item);
-            });
-        }
-
-        function buildGrid() {
-            const grid = document.getElementById('slot-grid');
-            grid.style.gridTemplateColumns = `repeat(${activeGame.cols}, 1fr)`;
-            grid.innerHTML = '';
-            let totalCells = activeGame.cols * activeGame.rows;
-            // Адаптация размера ячейки под сетку
-            let cellSize = activeGame.cols > 5 ? '40px' : '60px';
-            
-            for(let i=0; i<totalCells; i++) {
-                let cell = document.createElement('div');
-                cell.className = 'cell';
-                cell.style.width = cellSize;
-                cell.style.height = cellSize;
-                cell.innerText = activeGame.icons[Math.floor(Math.random()*activeGame.icons.length)];
-                grid.appendChild(cell);
-            }
-        }
-
-        function changeBet(val) {
-            if(isSpinning) return;
-            currentBet = Math.max(5, currentBet + val);
-            document.getElementById('display-bet').innerText = currentBet.toFixed(2);
-        }
-
         function startSpin() {
-            if(isSpinning || balance < currentBet) return;
+            if(isSpinning) return;
+            let bet = parseFloat(document.getElementById('bet-val').value);
+            if(balance < bet) return alert("Пополни баланс!");
+
             isSpinning = true;
-            balance -= currentBet;
+            balance -= bet;
             updateUI();
 
-            let count = 0;
-            let shuffle = setInterval(() => {
-                let cells = document.querySelectorAll('.cell');
-                cells.forEach(c => {
-                    c.innerText = activeGame.icons[Math.floor(Math.random()*activeGame.icons.length)];
-                });
-                count++;
-                if(count > 10) {
-                    clearInterval(shuffle);
-                    isSpinning = false;
-                    // Имитация выигрыша
-                    if(Math.random() > 0.8) {
-                        let win = currentBet * 5;
-                        balance += win;
-                        updateUI();
-                    }
-                }
-            }, 70);
+            // Имитация вращения (позже добавим реальную логику слотов Pragmatic)
+            setTimeout(() => {
+                let win = Math.random() > 0.8 ? bet * 5 : 0;
+                balance += win;
+                updateUI();
+                isSpinning = false;
+            }, 1000);
         }
 
         function updateUI() {
-            document.getElementById('display-bal').innerText = balance.toLocaleString('ru-RU', {minimumFractionDigits: 2});
+            document.getElementById('user-bal').innerText = balance.toFixed(2) + " ₴";
         }
-
-        initLobby();
-        buildGrid();
     </script>
 </body>
 </html>
